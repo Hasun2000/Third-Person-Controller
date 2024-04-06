@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "TPS project - Animation tutorial.sln"
+    "dotnet.defaultSolution": "Third Person Controller.sln"
 }
