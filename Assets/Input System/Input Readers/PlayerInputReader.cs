@@ -17,7 +17,7 @@ public class PlayerInputReader : MonoBehaviour
     public Action<Vector2> Move;
     public Action<Vector2> Look;
     public Action PrimaryActionEvent;
-    public Action SecondaryActionEvent;
+    public Action<bool> SecondaryActionEvent;
     public Action TertiaryActionEvent;
     
     [Header("UI Events")]
@@ -36,6 +36,7 @@ public class PlayerInputReader : MonoBehaviour
         _gameInput.Player.Look.performed += OnLook;
         _gameInput.Player.Primary.performed += OnPrimaryAction;
         _gameInput.Player.Secondary.performed += OnSecondaryAction;
+        _gameInput.Player.Secondary.canceled += OnSecondaryAction;
         _gameInput.Player.Tertiary.performed += OnTertiaryAction;
     }
     
@@ -45,6 +46,7 @@ public class PlayerInputReader : MonoBehaviour
         _gameInput.Player.Look.performed -= OnLook;
         _gameInput.Player.Primary.performed -= OnPrimaryAction;
         _gameInput.Player.Secondary.performed -= OnSecondaryAction;
+        _gameInput.Player.Secondary.canceled -= OnSecondaryAction;
         _gameInput.Player.Tertiary.performed -= OnTertiaryAction;
         _gameInput.Disable();
     }
@@ -66,7 +68,7 @@ public class PlayerInputReader : MonoBehaviour
     
     private void OnSecondaryAction(InputAction.CallbackContext context)
     {
-        SecondaryActionEvent?.Invoke();
+        SecondaryActionEvent?.Invoke(context.ReadValueAsButton());
     }
     
     private void OnTertiaryAction(InputAction.CallbackContext context)
